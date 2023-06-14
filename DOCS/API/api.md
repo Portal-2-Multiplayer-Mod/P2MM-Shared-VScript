@@ -1,7 +1,6 @@
 # $$\text{\color{lightgreen}P2MM  SHARED  VSCRIPT  DOCS}$$
 ## 1. <span style="color: rgb(0 148 100)">**HOOKS**</span>
----
----
+
 Hooks is a table of all **engine**>**vscript** or **vscript**>**vscript** hook classes.
 
 ### **USAGE :**
