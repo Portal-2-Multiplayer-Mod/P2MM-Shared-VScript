@@ -1,5 +1,4 @@
-# **P2MM *SHARED* VScript API DOCS**
-
+# $$\text{\color{lightgreen}P2MM  SHARED  VSCRIPT  DOCS}$$
 ## 1. <span style="color: rgb(0 148 100)">**HOOKS**</span>
 ---
 ---
