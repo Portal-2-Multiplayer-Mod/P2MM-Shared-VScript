@@ -1,7 +1,7 @@
 // used for getting the keys from a table
 keys <- function(table) {
     local returnkeys = []
-    foreach (key in table) {
+    foreach (key, val in table) {
         returnkeys.append(key)
     }
     return returnkeys
@@ -10,8 +10,8 @@ keys <- function(table) {
 // used for getting the values from a table
 values <- function(table) {
     local returnvals = []
-    foreach (key in table) {
-        returnvals.append(table[key])
+    foreach (key, val in table) {
+        returnvals.append(val)
     }
-    return returnkeys
+    return returnvals
 }
