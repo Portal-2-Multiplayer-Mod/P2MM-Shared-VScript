@@ -7,6 +7,10 @@ printl("calling p2mm===")
 
 IncludeScript("p2mm/api/api.nut")
 
+function cp() {
+    hotglue.toolkit.entity.LinkedPortalDoor(Transform(Vector(6160, 3775, 263 + 128), Vector(0,180,0), Vector(128, 128)), Transform(Vector(3776, 3584, -383), Vector(0,0,0), Vector(128, 128))).openDoor(1)
+    hotglue.toolkit.entity.LinkedPortalDoor(Transform(Vector(4180, 3599, -511), Vector(-90,0,180), Vector(128, 128)), Transform(Vector(5441, 3743, -561), Vector(0,0,0), Vector(128, 128))).openDoor()
+}
 
 // Varible Types
 // Var <- false;                   //* bVar

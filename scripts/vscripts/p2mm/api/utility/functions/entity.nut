@@ -26,3 +26,15 @@ GetEntListByName <- function(name) {
     return list
 }
 
+SetAngles <- function(ent, vec) {
+    ent.SetAngles(vec.x, vec.y, vec.z)
+}
+
+SetPos <- function(ent, vec) {
+    ent.SetOrigin(vec)
+}
+
+SetLocation <- function(ent, transform) {
+    if (transform.Angles != null) SetAngles(ent, transform.Angles)
+    if (transform.Origin != null) SetPos(ent, transform.Origin)
+}
