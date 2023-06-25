@@ -16,26 +16,35 @@ function ValidatePlayerClass(input, eindx = null) {
     return true;
 }
 
+//-----------
+// hooks
+//-----------
+
 function player_handler_player_connect(PackedArgs) {
     playerclasses[PackedArgs.EntIndex] <- CPlayerClass(PackedArgs.EntIndex, PackedArgs.Username, PackedArgs.SteamID, PackedArgs.IPAddress, PackedArgs.IsBot)
 }
-hooks.playerConnect.addCallback(player_handler_player_connect)
+hooks.playerConnectRaw.addCallback(player_handler_player_connect, "CreatePlayerClass")
 
 function player_handler_player_activate(PackedArgs) {
     ValidatePlayerClass(PackedArgs.EntIndex)
     FindPlayerClassByEntIndex(PackedArgs.EntIndex).finalize()
 }
-hooks.playerActivate.addCallback(player_handler_player_activate)
-
-function player_handler_player_death(PackedArgs) {
-    if (!ValidatePlayerClass(PackedArgs.PlayerClass, PackedArgs.EntIndex)) PackedArgs.PlayerClass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
-    PackedArgs.PlayerClass.Alive = false
-    PackedArgs.PlayerClass.Deaths += 1
-}
-hooks.playerDeath.addCallback(player_handler_player_death)
+hooks.playerActivateRaw.addCallback(player_handler_player_activate, "CreatePlayerClass")
 
 function player_handler_player_spawn(PackedArgs) {
-    if (!ValidatePlayerClass(PackedArgs.PlayerClass, PackedArgs.EntIndex)) PackedArgs.PlayerClass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
-    PackedArgs.PlayerClass.Alive = true
+    ValidatePlayerClass(PackedArgs.EntIndex)
+    local playerclass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
+    if (playerclass.Alive == false) {
+        playerclass.Alive = true;
+        post_player_class_player_spawn(PackedArgs); // player spawn is called many times so we decide when the player actually spawns and call the main hook
+    }
 }
-hooks.playerSpawn.addCallback(player_handler_player_spawn)
+hooks.playerSpawnRaw.addCallback(player_handler_player_spawn, "CreatePlayerClass")
+
+function player_handler_player_death(PackedArgs) {
+    ValidatePlayerClass(PackedArgs.EntIndex)
+    local playerclass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
+    playerclass.Alive = false
+    playerclass.Deaths += 1
+}
+hooks.playerDeathRaw.addCallback(player_handler_player_death, "CreatePlayerClass")

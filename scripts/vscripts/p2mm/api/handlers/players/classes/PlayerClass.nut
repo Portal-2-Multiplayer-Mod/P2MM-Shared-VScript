@@ -1,3 +1,6 @@
+/* 
+TODO: Add importance levels
+*/
 
 class CPlayerClass {
     // Class Handling
@@ -21,7 +24,6 @@ class CPlayerClass {
     // Linked Entitys
     LinkedPortals = null;
     LinkedPortalGun = null;
-
 
     // Cosmetic
     Color = "255 255 255";
@@ -133,7 +135,6 @@ class CPlayerClass {
 
     finalize = function() {
         PlayerEntity = FindPlayerByEntIndex(EntIndex);
-        Alive = true;
         this.LinkedPortals = [null, null]
 
         claimLinkedPortals();

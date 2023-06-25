@@ -9,9 +9,9 @@ IncludeScript("p2mm/api/hooks/classes/GenericHook.nut")
 
 hooks <- {};
 
-hooks.playerConnect <- GenericHook("playerConnect");
+hooks.playerConnectRaw <- GenericHook("playerConnect");
 function player_connect(eindx, name, steamid, ipaddr, bot) {
-    hooks.playerConnect.callCallbacks({
+    hooks.playerConnectRaw.callCallbacks({
         EntIndex = eindx,
         Username = name,
         SteamID = steamid,
@@ -20,29 +20,78 @@ function player_connect(eindx, name, steamid, ipaddr, bot) {
     })
 }
 
-hooks.playerActivate <- GenericHook("playerActivate");
+hooks.playerActivateRaw <- GenericHook("playerActivateRaw");
 function player_activate(eindx) {
-    hooks.playerActivate.callCallbacks({
+    hooks.playerActivateRaw.callCallbacks({
         EntIndex = eindx
     })
 }
 
-hooks.playerSpawn <- GenericHook("playerSpawn");
+hooks.playerSpawnRaw <- GenericHook("playerSpawnRaw");
 function player_spawn(eindx, teamnum) {
-    local Cplayerclass = FindPlayerClassByEntIndex(eindx);
-    hooks.playerSpawn.callCallbacks({
-        PlayerClass = Cplayerclass
+    hooks.playerSpawnRaw.callCallbacks({
         EntIndex = eindx
     })
 }
 
-hooks.playerDeath <- GenericHook("playerDeaths");
+hooks.playerDeathRaw <- GenericHook("playerDeathRaw");
 function player_death(eindx, attacker, weapon) {
-    local Cplayerclass = FindPlayerClassByEntIndex(eindx);
-    hooks.playerDeath.callCallbacks({
-        PlayerClass = Cplayerclass,
+    hooks.playerDeathRaw.callCallbacks({
         Attacker = attacker,
         Weapon = weapon,
         EntIndex = eindx
     });
 }
+
+
+//-----------------------------
+// VScript Corrected Callbacks
+//-----------------------------
+
+hooks.playerConnect <- GenericHook("playerConnect");
+function post_player_class_player_connect(PackedArgs) {
+    hooks.playerConnect.callCallbacks({
+        PlayerClass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
+    })
+}
+hooks.playerConnectRaw.attachCallbackToCallback(post_player_class_player_connect, "CreatePlayerClass")
+
+hooks.playerActivate <- GenericHook("playerActivate");
+function post_player_class_player_activate(PackedArgs) {
+    hooks.playerActivate.callCallbacks({
+        PlayerClass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
+    })
+}
+hooks.playerActivateRaw.attachCallbackToCallback(post_player_class_player_activate, "CreatePlayerClass")
+
+hooks.playerSpawn <- GenericHook("playerSpawn");
+function post_player_class_player_spawn(PackedArgs) {
+    hooks.playerSpawn.callCallbacks({
+        PlayerClass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
+    })
+}
+// Spawn is called numerous times so we have the playerclass handler determine when someone actually spawns
+
+hooks.playerDeath <- GenericHook("playerDeath");
+function post_player_class_player_death(PackedArgs) {
+    hooks.playerDeath.callCallbacks({
+        Attacker = PackedArgs.Attacker,
+        Weapon = PackedArgs.Weapon,
+        PlayerClass = FindPlayerClassByEntIndex(PackedArgs.EntIndex)
+    })
+}
+hooks.playerDeathRaw.attachCallbackToCallback(post_player_class_player_death, "CreatePlayerClass")
+
+//------------------
+// custom callbacks
+//------------------
+
+hasRanPostMapSpawn <- false
+hooks.postMapSpawn <- GenericHook("postMapSpawn");
+function p2mm_post_map_spawn(PackedArgs) {
+    if (hasRanPostMapSpawn == false) {
+        hooks.postMapSpawn.callCallbacks({})
+        hasRanPostMapSpawn = true
+    }
+}
+hooks.playerSpawn.addCallback(p2mm_post_map_spawn)
