@@ -1,5 +1,5 @@
-// used for getting the keys from a table
-keys <- function(table) {
+// used for getting the Keys from a table
+Keys <- function(table) {
     local returnkeys = []
     foreach (key, val in table) {
         returnkeys.append(key)
@@ -7,8 +7,8 @@ keys <- function(table) {
     return returnkeys
 }
 
-// used for getting the values from a table
-values <- function(table) {
+// used for getting the Values from a table
+Values <- function(table) {
     local returnvals = []
     foreach (key, val in table) {
         returnvals.append(val)
@@ -16,5 +16,22 @@ values <- function(table) {
     return returnvals
 }
 
-// ::printlraw <- ::printl
-// ::printl <- ::printl
+InString <- function(string, search) {
+    return string.find(search) != null
+}
+
+SetConvar <- function(convarname, val) {
+    local valtype = typeof val
+    if (valtype == "string") {
+        SetConVarString(convarname, val);
+        return true;
+    } 
+    if (valtype == "integer") {
+        SetConVarInt(convarname, val);
+        return true;
+    }
+    // if (valtype == "bool") {
+    //     SetConvarInt(convarname, )
+    // }
+    return false;
+}

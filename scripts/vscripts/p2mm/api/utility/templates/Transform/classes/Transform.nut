@@ -6,7 +6,7 @@ Transform <- class {
     constructor(origin = null, angles = null, size = null) {
         if (origin != null && IsVec3(origin))               Origin = origin; // vec3
         if (angles != null && IsVec3(angles))               Angles = angles; // vec3
-        if (size   != null && IsVec3(size) || IsVec2(size)) Size   =   size; // vec3 or vec2
+        if (size   != null && (IsVec3(size) || IsVec2(size))) Size   =   size; // vec3 or vec2
     }
 }
 

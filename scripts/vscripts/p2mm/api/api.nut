@@ -1,3 +1,4 @@
+IncludeScript("p2mm/api/utility/constants.nut")
 IncludeScript("p2mm/api/utility/functions/general.nut")
 IncludeScript("p2mm/api/utility/functions/entity.nut")
 IncludeScript("p2mm/api/utility/functions/player.nut")

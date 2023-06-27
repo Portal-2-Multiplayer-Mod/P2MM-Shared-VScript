@@ -1,6 +1,6 @@
 GetAllPlayerClasses <- function(ExcludedPlayerclasses = []) {
     local returnclasses = [];
-    foreach (Cplayerclass in values(playerclasses)) {
+    foreach (Cplayerclass in Values(playerclasses)) {
         if (Cplayerclass in ExcludedPlayerclasses) continue;
         returnclasses.append(Cplayerclass);
     }

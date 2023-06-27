@@ -23,11 +23,11 @@ hotglue.toolkit.entity.LinkedPortalDoor <- class {
         LinkedPortalDoor1 = Entities.CreateByClassname("linked_portal_door")
         LinkedPortalDoor2 = Entities.CreateByClassname("linked_portal_door")
 
-        LinkedPortalDoor1.__KeyValueFromInt("width", transform1.Size.x)
-        LinkedPortalDoor2.__KeyValueFromInt("width", transform2.Size.x)
+        SetKeyValue(LinkedPortalDoor1, "width", transform1.Size.x)
+        SetKeyValue(LinkedPortalDoor2, "width", transform2.Size.x)
 
-        LinkedPortalDoor1.__KeyValueFromInt("height", transform1.Size.y)
-        LinkedPortalDoor2.__KeyValueFromInt("height", transform2.Size.y)
+        SetKeyValue(LinkedPortalDoor1, "height", transform1.Size.y)
+        SetKeyValue(LinkedPortalDoor2, "height", transform2.Size.y)
 
         //* detect if there is a name if not make a generic name
         if (name1 == null) {
@@ -38,11 +38,11 @@ hotglue.toolkit.entity.LinkedPortalDoor <- class {
             name2 = "P2MM_GenericLinkedPortalDoor_" + UniqueString()
         }
 
-        LinkedPortalDoor1.__KeyValueFromString("targetname", name1)
-        LinkedPortalDoor2.__KeyValueFromString("targetname", name2)
+        SetKeyValue(LinkedPortalDoor1, "targetname", name1)
+        SetKeyValue(LinkedPortalDoor2, "targetname", name2)
 
-        LinkedPortalDoor1.__KeyValueFromString("partnername", name2)
-        LinkedPortalDoor2.__KeyValueFromString("partnername", name1)
+        SetKeyValue(LinkedPortalDoor1, "partnername", name2)
+        SetKeyValue(LinkedPortalDoor2, "partnername", name1)
 
         SetLocation(LinkedPortalDoor1, transform1)
         SetLocation(LinkedPortalDoor2, transform2)

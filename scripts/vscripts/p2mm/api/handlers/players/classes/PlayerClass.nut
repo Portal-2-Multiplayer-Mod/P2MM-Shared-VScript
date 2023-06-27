@@ -42,6 +42,10 @@ class CPlayerClass {
                 // skip any portals owned by other players
                 local badPortal = false;
                 foreach (Cplayerclass in GetAllPlayerClasses()) {
+                    if (Cplayerclass.LinkedPortals.len() < 2) {
+                        printl("How did this happen?? PlayerClasses Linked Portals")
+                        continue
+                    }
                     if (Cplayerclass.LinkedPortals[0] == portal || Cplayerclass.LinkedPortals[1] == portal) {
                         badPortal = true;
                         break;
@@ -49,10 +53,7 @@ class CPlayerClass {
                 }
 
                 // if this portal isn't owned by anyone else claim it!
-                if (!badPortal) {
-                    foundPortals.append(portal);
-                    continue;
-                } else continue;
+                if (!badPortal) foundPortals.append(portal);
             }
         }
 
@@ -117,7 +118,7 @@ class CPlayerClass {
     givePortalGun = function() {
         // Force all players to receive portal gun
         GamePlayerEquip <- Entities.CreateByClassname("game_player_equip")
-        GamePlayerEquip.__KeyValueFromString("weapon_portalgun", "1")
+        SetKeyValue(GamePlayerEquip, "weapon_portalgun", "1")
         local p = null
         while (p = Entities.FindByClassname(p, "player")) {
             EntFireByHandle(GamePlayerEquip, "use", "", 0, p, p)
@@ -129,9 +130,17 @@ class CPlayerClass {
         a1AlreadyGavePortalGun <- true
     }
 
+    sendCommand = function(command, delay = 0) {
+        EntFireByHandle(sharedents.point_clientcommand, "Command", command, delay, PlayerEntity, PlayerEntity)
+    }
+
     //-----------------
     // Setup
     //-----------------
+
+    disconnect = function() {
+        delete playerclasses[EntIndex]
+    }
 
     finalize = function() {
         PlayerEntity = FindPlayerByEntIndex(EntIndex);

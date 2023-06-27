@@ -3,6 +3,7 @@ PURPOSE:
 
 Define engine hooks and custom p2mm hooks.
 TODO: We gotta make these function names harder to replace
+TODO: Make player disconnect use priority levels specifically playerclass removal needs to run last
 */
 
 IncludeScript("p2mm/api/hooks/classes/GenericHook.nut")
@@ -43,6 +44,13 @@ function player_death(eindx, attacker, weapon) {
     });
 }
 
+hooks.playerDisconnect <- GenericHook("playerDisconnect")
+function player_disconnect(eindx, reason, name, networkid) {
+    hooks.playerDisconnect.callCallbacks({
+        PlayerClass = FindPlayerClassByEntIndex(eindx),
+        Reason = reason
+    })
+}
 
 //-----------------------------
 // VScript Corrected Callbacks
@@ -86,12 +94,12 @@ hooks.playerDeathRaw.attachCallbackToCallback(post_player_class_player_death, "C
 // custom callbacks
 //------------------
 
-hasRanPostMapSpawn <- false
+::hasRanPostMapSpawn <- false
 hooks.postMapSpawn <- GenericHook("postMapSpawn");
 function p2mm_post_map_spawn(PackedArgs) {
-    if (hasRanPostMapSpawn == false) {
+    if (::hasRanPostMapSpawn == false) {
         hooks.postMapSpawn.callCallbacks({})
-        hasRanPostMapSpawn = true
+        ::hasRanPostMapSpawn = true
     }
 }
 hooks.playerSpawn.addCallback(p2mm_post_map_spawn)

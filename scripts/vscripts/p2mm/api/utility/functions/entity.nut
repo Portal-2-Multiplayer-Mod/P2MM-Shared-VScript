@@ -38,3 +38,25 @@ SetLocation <- function(ent, transform) {
     if (transform.Angles != null) SetAngles(ent, transform.Angles)
     if (transform.Origin != null) SetPos(ent, transform.Origin)
 }
+
+SetKeyValue <- function(ent, key, val) {
+    local valtype = typeof val
+    switch (valtype) {
+        case "bool":
+            if (val) {ent.__KeyValueFromInt(key, 1)}
+            else {ent.__KeyValueFromInt(key, 0)} 
+            break;
+        case "integer": 
+            ent.__KeyValueFromInt(key, val)
+            break;
+        case "float":
+            ent.__KeyValueFromString(key, val.tostring())
+            break;
+        case "Vector":
+            ent.__KeyValueFromVector(key, val)
+            break;
+        case "string":
+            ent.__KeyValueFromString(key, val)
+            break;
+    }
+}

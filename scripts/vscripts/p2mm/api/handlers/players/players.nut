@@ -48,3 +48,10 @@ function player_handler_player_death(PackedArgs) {
     playerclass.Deaths += 1
 }
 hooks.playerDeathRaw.addCallback(player_handler_player_death, "CreatePlayerClass")
+
+function player_handler_player_disconnect(PackedArgs) {
+    if (PackedArgs.PlayerClass != null) {
+        PackedArgs.PlayerClass.disconnect()
+    }
+}
+hooks.playerDisconnect.addCallback(player_handler_player_disconnect, "CreatePlayerClass", -3)
