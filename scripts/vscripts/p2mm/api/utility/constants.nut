@@ -89,7 +89,9 @@ MOVETYPE <- {
     GLOW                        = 3,
     SOLID                       = 4,
     ADDITIVE                    = 5,
-    ADDITIVE_FRACTIONAL_FRAME   = 6,
+    ENVIRONMENTAL               = 6,
+    ADDITIVE_FRACTIONAL_FRAME   = 7,
+    ALPHA_ADD                   = 8,
     WORLD_SPACE_GLOW            = 9,
     DONT_RENDER                 = 10
 }
@@ -97,9 +99,9 @@ MOVETYPE <- {
 
 ::KEY_VALUES <- {
     COMMON = {
-        rendercolor_sz             =  "rendercolor",            // Takes "255 255 255 255" "RED GREEN BLUE ALPHA"
+        rendercolor_sz             =  "rendercolor",            // Takes "255 255 255 255" "RED GREEN BLUE ALPHA" //! rendermode must be set to color
         renderamt_i                =  "renderamt",              // Takes 0-255 essentially an alpha //! rendermode must be set to color
-        rendermode_i               =  "rendermode"              // Takes one of our helper RENDERMODEs and
+        rendermode_i               =  "rendermode"              // Takes one of our helper RENDERMODEs and //!
         disableshadows_b           =  "disableshadows",         // Takes bool self explanitory 
         drawinfastreflection_b     =  "drawinfastreflection",   // Takes bool will draw in the default reflections
         disableshadowdepth_b       =  "disableshadowdepth",     // Takes bool this makes the prop not effect env_projected_texture

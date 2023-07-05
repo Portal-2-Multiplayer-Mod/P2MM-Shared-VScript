@@ -7,10 +7,11 @@ ServerInfo <- {
 }
 
 sharedents <- {
-    point_clientcommand = null
+    point_clientcommand = null,
+    point_servercommand = null,
+    game_text = null
 }
 
-IncludeScript("p2mm/api/handlers/game/features/fastdl.nut")
 IncludeScript("p2mm/api/handlers/game/bugfixes/bugfixes.nut")
 
 //-----------------------
@@ -46,7 +47,10 @@ function game_handler_post_map_spawn(PackedArgs) {
             break;
     }
 
+    sharedents.game_text <- Entities.CreateByClassname("game_text")
     sharedents.point_clientcommand <- Entities.CreateByClassname("point_clientcommand")
+    sharedents.point_servercommand <- Entities.CreateByClassname("point_servercommand")
+    SetName(sharedents.point_servercommand, "p2mm_servercommand")
 
     AddBranchLevelName( 1, "P2 MM" )
 }

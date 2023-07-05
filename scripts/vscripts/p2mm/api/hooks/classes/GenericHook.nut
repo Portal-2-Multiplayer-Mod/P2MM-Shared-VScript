@@ -23,7 +23,12 @@ class Callback {
     importanceLevel = 0;
 
     run = function(PackedArgs) {
-        HeldFunction(PackedArgs)
+        local ctype = typeof HeldFunction
+        if (ctype == "table") {
+            HeldFunction.Scope[HeldFunction.Name](PackedArgs)
+        } else {
+            HeldFunction(PackedArgs)
+        }
         runInImportanceOrder(attachedCallbacks, PackedArgs)
     }
 
@@ -35,8 +40,16 @@ class Callback {
         this.attachedCallbacks = []
         importanceLevel = level
         HeldFunction = inputFunction
-        if (name == null) Name = inputFunction.getinfos().name
-        else Name = name
+        if (name == null)  {
+            local ctype = typeof inputFunction
+            if (ctype == "table") {
+                Name = inputFunction.Name
+            } else {
+                Name = inputFunction.getinfos().name
+            }
+        } else {
+            Name = name
+        }
     }
 }
 

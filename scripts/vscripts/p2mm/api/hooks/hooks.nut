@@ -52,6 +52,15 @@ function player_disconnect(eindx, reason, name, networkid) {
     })
 }
 
+hooks.mainLoop <- GenericHook("mainLoop")
+function HandleGameFrame(simulating) {
+    hooks.mainLoop.callCallbacks({
+        Simulating = simulating
+    })
+}
+IncludeScript("p2mm/api/hooks/classes/GenericLoop.nut")
+
+
 //-----------------------------
 // VScript Corrected Callbacks
 //-----------------------------

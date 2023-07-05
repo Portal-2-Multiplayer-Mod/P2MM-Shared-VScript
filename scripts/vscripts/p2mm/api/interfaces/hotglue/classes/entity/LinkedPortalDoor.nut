@@ -1,33 +1,33 @@
 hotglue.toolkit.entity.LinkedPortalDoor <- class {
-    LinkedPortalDoor1 = null
-    LinkedPortalDoor2 = null
+    Entity1 = null
+    Entity2 = null
 
     // open func and close func
     openDoor  = function(delay = 0, instant = false) {
         if (!instant) {
-            EntFireByHandle(LinkedPortalDoor1, "Open", "", delay)
-            EntFireByHandle(LinkedPortalDoor1, "Close", "", delay + 0.05)
-            EntFireByHandle(LinkedPortalDoor1, "Open", "", delay + 0.1)
+            EntFireByHandle(Entity1, "Open", "", delay)
+            EntFireByHandle(Entity1, "Close", "", delay + 0.05)
+            EntFireByHandle(Entity1, "Open", "", delay + 0.1)
         } else {
-            EntFireByHandle(LinkedPortalDoor1, "Open", "", delay)
+            EntFireByHandle(Entity1, "Open", "", delay)
         }
         
     }
 
     closeDoor = function(delay = 0) {
-        EntFireByHandle(LinkedPortalDoor1, "Close", "", delay)
-        EntFireByHandle(LinkedPortalDoor2, "Close", "", delay)
+        EntFireByHandle(Entity1, "Close", "", delay)
+        EntFireByHandle(Entity2, "Close", "", delay)
     }
     
     constructor(transform1, transform2, name1 = null, name2 = null) {
-        LinkedPortalDoor1 = Entities.CreateByClassname("linked_portal_door")
-        LinkedPortalDoor2 = Entities.CreateByClassname("linked_portal_door")
+        Entity1 = Entities.CreateByClassname("linked_portal_door")
+        Entity2 = Entities.CreateByClassname("linked_portal_door")
 
-        SetKeyValue(LinkedPortalDoor1, "width", transform1.Size.x)
-        SetKeyValue(LinkedPortalDoor2, "width", transform2.Size.x)
+        SetKeyValue(Entity1, "width", transform1.Size.x)
+        SetKeyValue(Entity2, "width", transform2.Size.x)
 
-        SetKeyValue(LinkedPortalDoor1, "height", transform1.Size.y)
-        SetKeyValue(LinkedPortalDoor2, "height", transform2.Size.y)
+        SetKeyValue(Entity1, "height", transform1.Size.y)
+        SetKeyValue(Entity2, "height", transform2.Size.y)
 
         //* detect if there is a name if not make a generic name
         if (name1 == null) {
@@ -38,16 +38,16 @@ hotglue.toolkit.entity.LinkedPortalDoor <- class {
             name2 = "P2MM_GenericLinkedPortalDoor_" + UniqueString()
         }
 
-        SetKeyValue(LinkedPortalDoor1, "targetname", name1)
-        SetKeyValue(LinkedPortalDoor2, "targetname", name2)
+        SetKeyValue(Entity1, "targetname", name1)
+        SetKeyValue(Entity2, "targetname", name2)
 
-        SetKeyValue(LinkedPortalDoor1, "partnername", name2)
-        SetKeyValue(LinkedPortalDoor2, "partnername", name1)
+        SetKeyValue(Entity1, "partnername", name2)
+        SetKeyValue(Entity2, "partnername", name1)
 
-        SetLocation(LinkedPortalDoor1, transform1)
-        SetLocation(LinkedPortalDoor2, transform2)
+        SetLocation(Entity1, transform1)
+        SetLocation(Entity2, transform2)
 
-        InitializeEntity(LinkedPortalDoor1)
-        InitializeEntity(LinkedPortalDoor2)
+        InitializeEntity(Entity1)
+        InitializeEntity(Entity2)
     }
 }

@@ -20,10 +20,16 @@ class CPlayerClass {
     PotatoGun = false;
     IsBot = false;
     TwoPortals = true;
+    EyeAngles = Vector(0,0,0);
+
+    // hooks
+    OnEyeAnglesChange = null;
 
     // Linked Entitys
     LinkedPortals = null;
     LinkedPortalGun = null;
+    LinkedViewModel = null;
+    LinkedArbitraryObjects = null;
 
     // Cosmetic
     Color = "255 255 255";
@@ -71,6 +77,14 @@ class CPlayerClass {
     // Updates
     //-------------------
 
+    updateEyeAngles = function(eyeangles) {
+        EyeAngles = eyeangles
+        OnEyeAnglesChange.callCallbacks({
+            PlayerClass = this
+            EyeAngles = eyeangles
+        })
+    }
+
     updateDeathStatus = function(isDead) {
         if (isDead) {
             Alive = false;
@@ -100,6 +114,10 @@ class CPlayerClass {
     //--------------------
     // Game
     //--------------------
+
+    DisplayText = function() {
+        
+    }
     
     givePotatoGun = function() {
         PotatoGun = true; // we set this to true regardless, we want to have a potatogun, if the player gets it we can handle that intent
@@ -151,6 +169,8 @@ class CPlayerClass {
         updatePortalGun(); // just incase potatogun got set while joining
         
         FullyInitalized = true;
+
+        custom_hook_player_class_finalize(this)
     }
 
     constructor(eindx, name, steamid = "UNKNOWN", ipaddr = null, isbot = false) {
@@ -159,5 +179,7 @@ class CPlayerClass {
         Username = name;
         IPAddress = ipaddr;
         IsBot = isbot;
+        LinkedArbitraryObjects = {};
+        OnEyeAnglesChange = GenericHook("EyeAngleChange");
     }
 }

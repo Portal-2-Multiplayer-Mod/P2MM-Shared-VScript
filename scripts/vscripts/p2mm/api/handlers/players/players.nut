@@ -16,9 +16,20 @@ function ValidatePlayerClass(input, eindx = null) {
     return true;
 }
 
-//-----------
+//--------------
+// custom hooks
+//--------------
+
+hooks.onPlayerClassFinalize <- GenericHook("PlayerClassFinalize");
+function custom_hook_player_class_finalize(playerclass) {
+    hooks.onPlayerClassFinalize.callCallbacks({
+        PlayerClass = playerclass
+    })
+}
+
+//-------
 // hooks
-//-----------
+//-------
 
 function player_handler_player_connect(PackedArgs) {
     playerclasses[PackedArgs.EntIndex] <- CPlayerClass(PackedArgs.EntIndex, PackedArgs.Username, PackedArgs.SteamID, PackedArgs.IPAddress, PackedArgs.IsBot)
@@ -55,3 +66,27 @@ function player_handler_player_disconnect(PackedArgs) {
     }
 }
 hooks.playerDisconnect.addCallback(player_handler_player_disconnect, "CreatePlayerClass", -3)
+
+function eye_angles_update(PackedArgs) {
+}
+function eye_angles_update_hook_adder(PackedArgs) PackedArgs.PlayerClass.OnEyeAnglesChange.addCallback(eye_angles_update)
+
+hooks.onPlayerClassFinalize.addCallback(eye_angles_update_hook_adder)
+
+
+//-------
+// loops 
+//-------
+
+function player_handler_tick_updates() {
+    foreach (playerclass in GetAllPlayerClasses()) {
+        if (!playerclass.FullyInitalized) continue;
+        local newEyeAngles = GetRealAngles(playerclass.PlayerEntity);
+        if (CompareVectors(newEyeAngles, playerclass.EyeAngles)) continue;
+        playerclass.updateEyeAngles(newEyeAngles);
+    }
+}
+playerHandlerLoop <- GenericLoop(10);
+playerHandlerLoop.AddFunction(player_handler_tick_updates);
+playerHandlerLoop.StartLoop()
+
