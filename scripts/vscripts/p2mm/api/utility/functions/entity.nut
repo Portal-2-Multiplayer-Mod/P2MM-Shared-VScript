@@ -76,7 +76,7 @@ SetLocation <- function(ent, transform) {
 GetRealAngles <- function(ent, round = true) {
     local spl = split(GetViewAngles(ent), ";")
     local vec = Vector(spl[0].tofloat(), spl[1].tofloat(), spl[2].tofloat())
-    if (round) vec = Vector(floor(vec.x * 100) / 100, floor(vec.y * 100) / 100, floor(vec.y * 100) / 100)
+    if (round) vec = RoundVector(vec, 0)
     return vec;
 }
 

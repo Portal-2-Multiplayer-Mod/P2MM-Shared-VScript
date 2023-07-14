@@ -68,11 +68,12 @@ function player_handler_player_disconnect(PackedArgs) {
 hooks.playerDisconnect.addCallback(player_handler_player_disconnect, "CreatePlayerClass", -3)
 
 function eye_angles_update(PackedArgs) {
+    printl(PackedArgs.EyeAngles)
+    printl(ConvertToLimitedAngle(ConvertToFullAngle(PackedArgs.EyeAngles)))
 }
 function eye_angles_update_hook_adder(PackedArgs) PackedArgs.PlayerClass.OnEyeAnglesChange.addCallback(eye_angles_update)
 
 hooks.onPlayerClassFinalize.addCallback(eye_angles_update_hook_adder)
-
 
 //-------
 // loops 
@@ -80,8 +81,12 @@ hooks.onPlayerClassFinalize.addCallback(eye_angles_update_hook_adder)
 
 function player_handler_tick_updates() {
     foreach (playerclass in GetAllPlayerClasses()) {
+        if (playerclass.PlayerEntity.GetName() != "red") continue
         if (!playerclass.FullyInitalized) continue;
         local newEyeAngles = GetRealAngles(playerclass.PlayerEntity);
+        newEyeAngles = RoundVector(newEyeAngles, 2)
+        // printl("new" + newEyeAngles.tostring())
+        // printl("old" + playerclass.EyeAngles.tostring())
         if (CompareVectors(newEyeAngles, playerclass.EyeAngles)) continue;
         playerclass.updateEyeAngles(newEyeAngles);
     }

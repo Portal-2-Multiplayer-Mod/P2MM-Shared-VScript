@@ -2,7 +2,7 @@
 ::Vector <- function(x, y, z = null) {
     local vec2 = false
     if (z == null) {
-        z = 32803280.3280;
+        z = 32803280;
         vec2 = true
     }
     local vec = RawVector(x, y, z);
@@ -10,11 +10,11 @@
 }
 
 IsVec2 <- function(vec) {
-    return (vec.z == 32803280.3280)
+    return (vec.z == 32803280)
 }
 
 IsVec3 <- function(vec) {
-    return (vec.z != 32803280.3280)
+    return (vec.z != 32803280)
 }
 
 UnpackVector <- function(vec) {

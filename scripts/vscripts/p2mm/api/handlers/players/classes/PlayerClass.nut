@@ -79,7 +79,7 @@ class CPlayerClass {
 
     updateEyeAngles = function(eyeangles) {
         EyeAngles = eyeangles
-        OnEyeAnglesChange.callCallbacks({
+        this.OnEyeAnglesChange.callCallbacks({
             PlayerClass = this
             EyeAngles = eyeangles
         })
@@ -179,7 +179,7 @@ class CPlayerClass {
         Username = name;
         IPAddress = ipaddr;
         IsBot = isbot;
-        LinkedArbitraryObjects = {};
-        OnEyeAnglesChange = GenericHook("EyeAngleChange");
+        this.LinkedArbitraryObjects = {};
+        this.OnEyeAnglesChange = GenericHook("EyeAngleChange");
     }
 }

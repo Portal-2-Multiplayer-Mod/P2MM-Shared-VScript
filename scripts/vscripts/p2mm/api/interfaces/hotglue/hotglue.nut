@@ -3,6 +3,9 @@ hotglue <- {
         entity = {}
         logic = {}
     }
+    storage = {
+        
+    }
 }
 
 IncludeScript("p2mm/api/interfaces/hotglue/classes/entity/AmbientGeneric.nut")
