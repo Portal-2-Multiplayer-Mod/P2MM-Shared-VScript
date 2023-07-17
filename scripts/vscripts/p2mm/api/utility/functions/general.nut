@@ -3,16 +3,16 @@ SetConvar <- function(convarname, val) {
     if (valtype == "string") {
         SetConVarString(convarname, val);
         return true;
-    } 
+    }
     if (valtype == "integer") {
         SetConVarInt(convarname, val);
         return true;
     }
     if (valtype == "bool") {
         if (val) {
-            SetConvarInt(convarname, 1)
+            SetConVarInt(convarname, 1)
         } else {
-            SetConvarInt(convarname, 0)
+            SetConVarInt(convarname, 0)
         }
     }
     return false;

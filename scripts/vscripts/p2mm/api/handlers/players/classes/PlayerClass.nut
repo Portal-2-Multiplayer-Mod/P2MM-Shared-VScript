@@ -149,7 +149,7 @@ class CPlayerClass {
     }
 
     sendCommand = function(command, delay = 0) {
-        EntFireByHandle(sharedents.point_clientcommand, "Command", command, delay, PlayerEntity, PlayerEntity)
+        EntFireByHandle(game.SharedEnts.point_clientcommand, "Command", command, delay, PlayerEntity, PlayerEntity)
     }
 
     //-----------------

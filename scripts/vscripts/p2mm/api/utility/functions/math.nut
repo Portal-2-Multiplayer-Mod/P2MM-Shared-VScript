@@ -85,20 +85,17 @@ AddFlatFullAngles <- function(ang1, ang2) {
 }
 
 AddFlatLimitedAngles <- function(ang1, ang2) {
-    return ConvertToFlatLimitedAngle((ConvertToFlatFullAngle(ang1) + ConvertToFlatFullAngle(ang2)) % 360)
+    return ConvertToFlatLimitedAngle(AddFlatFullAngles(ConvertToFlatFullAngle(ang1), ConvertToFlatFullAngle(ang2)))
 }
 
-AddFullAngles <- function(ang1, ang2) {
+AddAngles <- function(ang1, ang2) {
     local type = typeof ang1
     if (type == "Vector") {
-        local newang = ConvertToFullAngle(ang1, ang2)
-        if (IsVec3(newang)) {
-
+        if (IsVec3(ang1)) {
+            return Vector(AddFlatLimitedAngles(ang1.x, ang2.x), AddFlatLimitedAngles(ang1.y, ang2.y), AddFlatLimitedAngles(ang1.z, ang2.z))
         } else {
-
-            newang.y = ang.y
+            return Vector(AddFlatLimitedAngles(ang1.x, ang2.x), AddFlatLimitedAngles(ang1.y, ang2.y), ang1.z)
         }
-        return newang
     } else {
         return AddFlatLimitedAngles(ang1, ang2)
     }

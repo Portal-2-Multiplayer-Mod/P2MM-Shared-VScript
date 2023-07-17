@@ -74,9 +74,10 @@ SetLocation <- function(ent, transform) {
 }
 
 GetRealAngles <- function(ent, round = true) {
-    local spl = split(GetViewAngles(ent), ";")
-    local vec = Vector(spl[0].tofloat(), spl[1].tofloat(), spl[2].tofloat())
-    if (round) vec = RoundVector(vec, 0)
+    // local spl = split(GetViewAngles(ent), ";")
+    // local vec = Vector(spl[0].tofloat(), spl[1].tofloat(), spl[2].tofloat())
+    local vec = GetViewAngles(ent);
+    if (round) vec = RoundVector(vec, 0);
     return vec;
 }
 
@@ -85,9 +86,9 @@ SetKeyValue <- function(ent, key, val) {
     switch (valtype) {
         case "bool":
             if (val) {ent.__KeyValueFromInt(key, 1)}
-            else {ent.__KeyValueFromInt(key, 0)} 
+            else {ent.__KeyValueFromInt(key, 0)}
             break;
-        case "integer": 
+        case "integer":
             ent.__KeyValueFromInt(key, val)
             break;
         case "float":

@@ -17,3 +17,4 @@ IncludeScript("p2mm/api/handlers/animation/animation.nut")
 
 IncludeScript("p2mm/api/interfaces/hotglue/hotglue.nut")
 
+p2mm <- {};

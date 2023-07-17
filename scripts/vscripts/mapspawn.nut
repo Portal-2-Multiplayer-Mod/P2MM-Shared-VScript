@@ -6,6 +6,7 @@ if (!("Entities" in this)) { return }
 printl("calling p2mm===")
 
 IncludeScript("p2mm/api/api.nut")
+IncludeScript("p2mm/main/main.nut")
 
 //! TEST CODE PLEASE IGNORE !//
 // function cp() {
@@ -23,7 +24,7 @@ function cp() {
 }
 
 function myPostMapSpawn(PackedArgs) {
-    if (InString(ServerInfo.mapName, "hub") || InString(ServerInfo.mapName, "lobby")) {
+    if (InString(game.ServerInfo.mapName, "hub") || InString(game.ServerInfo.mapName, "lobby")) {
         cp()
     }
 }

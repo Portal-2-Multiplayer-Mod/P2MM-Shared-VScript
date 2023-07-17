@@ -7,7 +7,6 @@ function bugfixes_player_activate(PackedArgs) {
     ]
 
     local servercommands = {
-        ["portal_use_player_avoidance"] = 1,
         ["mp_wait_for_other_player_notconnecting_timeout"] = 0,
         ["mp_wait_for_other_player_timeout"] = 0,
         ["sv_timeout"] = 3

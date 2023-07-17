@@ -7,7 +7,7 @@ function ValidatePlayerClass(input, eindx = null) {
         playerclasses[eindx] <- CPlayerClass(eindx, GetPlayerName(eindx), GetSteamID(eindx), null, false);
         return false;
     }
-    
+
     if (typeof input == "integer" && FindPlayerClassByEntIndex(input) == null) {
         playerclasses[input] <- CPlayerClass(input, GetPlayerName(input), GetSteamID(input), null, false); // wont be a bot cause a bot would have ran connect
         return false;
@@ -76,12 +76,11 @@ function eye_angles_update_hook_adder(PackedArgs) PackedArgs.PlayerClass.OnEyeAn
 hooks.onPlayerClassFinalize.addCallback(eye_angles_update_hook_adder)
 
 //-------
-// loops 
+// loops
 //-------
 
 function player_handler_tick_updates() {
     foreach (playerclass in GetAllPlayerClasses()) {
-        if (playerclass.PlayerEntity.GetName() != "red") continue
         if (!playerclass.FullyInitalized) continue;
         local newEyeAngles = GetRealAngles(playerclass.PlayerEntity);
         newEyeAngles = RoundVector(newEyeAngles, 2)

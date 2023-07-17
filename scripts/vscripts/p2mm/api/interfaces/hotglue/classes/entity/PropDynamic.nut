@@ -1,6 +1,5 @@
 hotglue.toolkit.entity.PropDynamic <- class {
     Entity = null;
-
     AnimationHandler = null;
 
     // TODO: ENABLE/DISABLE
