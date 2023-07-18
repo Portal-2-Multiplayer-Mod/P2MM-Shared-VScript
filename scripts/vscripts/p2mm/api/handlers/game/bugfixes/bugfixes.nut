@@ -17,7 +17,7 @@ function bugfixes_player_activate(PackedArgs) {
     }
 
     foreach (command, val in servercommands) {
-        SetConvar(command, val)
+        SetConvar(command, val, true)
     }
 }
 hooks.playerActivate.addCallback(bugfixes_player_activate)

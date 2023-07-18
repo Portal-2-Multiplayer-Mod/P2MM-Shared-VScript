@@ -7,6 +7,7 @@ IncludeScript("p2mm/api/utility/functions/entity.nut")
 IncludeScript("p2mm/api/utility/functions/player.nut")
 
 IncludeScript("p2mm/api/utility/templates/Transform/transform.nut")
+IncludeScript("p2mm/api/utility/templates/Color/color.nut")
 IncludeScript("p2mm/api/utility/templates/keys.nut")
 
 IncludeScript("p2mm/api/hooks/hooks.nut")

@@ -1,18 +1,22 @@
-SetConvar <- function(convarname, val) {
+SetConvar <- function(convarname, val, force=false) {
     local valtype = typeof val
     if (valtype == "string") {
-        SetConVarString(convarname, val);
+        if (force) SetConVarString(convarname, val);
+        else SendToConsole(convarname + " " + val);
         return true;
     }
     if (valtype == "integer") {
-        SetConVarInt(convarname, val);
+        if (force) SetConVarInt(convarname, val);
+        else SendToConsole(convarname + " " + val.tostring());
         return true;
     }
     if (valtype == "bool") {
         if (val) {
-            SetConVarInt(convarname, 1)
+            if (force) SetConVarInt(convarname, 1);
+            else SendToConsole(convarname + " 1");
         } else {
-            SetConVarInt(convarname, 0)
+            if (force) SetConVarInt(convarname, 0);
+            else SendToConsole(convarname + " 0");
         }
     }
     return false;

@@ -1,4 +1,4 @@
-/* 
+/*
 TODO: Add importance levels
 */
 
@@ -32,7 +32,7 @@ class CPlayerClass {
     LinkedArbitraryObjects = null;
 
     // Cosmetic
-    Color = "255 255 255";
+    PlayerColor = null;
 
     //-------------
     // Claim Relatives
@@ -112,13 +112,22 @@ class CPlayerClass {
     }
 
     //--------------------
+    // Hooks
+    //--------------------
+
+    ColorChangeHook = function(PackedArgs) {
+        printl(PlayerColor.getStringRGB())
+        EntFireByHandle(PlayerEntity, "Color", PlayerColor.getStringRGB())
+    }
+
+    //--------------------
     // Game
     //--------------------
 
     DisplayText = function() {
-        
+
     }
-    
+
     givePotatoGun = function() {
         PotatoGun = true; // we set this to true regardless, we want to have a potatogun, if the player gets it we can handle that intent
         if (LinkedPortalGun == null) return;
@@ -167,13 +176,15 @@ class CPlayerClass {
         claimLinkedPortals();
         claimPortalGun();
         updatePortalGun(); // just incase potatogun got set while joining
-        
+
         FullyInitalized = true;
 
         custom_hook_player_class_finalize(this)
     }
 
     constructor(eindx, name, steamid = "UNKNOWN", ipaddr = null, isbot = false) {
+        PlayerColor = Color(255,255,255);
+        PlayerColor.onChangeHook.addCallback({Scope=this, Name="ColorChangeHook"})
         EntIndex = eindx;
         SteamID = steamid;
         Username = name;

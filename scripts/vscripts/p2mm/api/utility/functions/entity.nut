@@ -73,7 +73,7 @@ SetLocation <- function(ent, transform) {
     if (transform.Origin != null) SetPos(ent, transform.Origin)
 }
 
-GetRealAngles <- function(ent, round = true) {
+GetRealAngles <- function(ent, round = false) {
     // local spl = split(GetViewAngles(ent), ";")
     // local vec = Vector(spl[0].tofloat(), spl[1].tofloat(), spl[2].tofloat())
     local vec = GetViewAngles(ent);

@@ -67,14 +67,6 @@ function player_handler_player_disconnect(PackedArgs) {
 }
 hooks.playerDisconnect.addCallback(player_handler_player_disconnect, "CreatePlayerClass", -3)
 
-function eye_angles_update(PackedArgs) {
-    printl(PackedArgs.EyeAngles)
-    printl(ConvertToLimitedAngle(ConvertToFullAngle(PackedArgs.EyeAngles)))
-}
-function eye_angles_update_hook_adder(PackedArgs) PackedArgs.PlayerClass.OnEyeAnglesChange.addCallback(eye_angles_update)
-
-hooks.onPlayerClassFinalize.addCallback(eye_angles_update_hook_adder)
-
 //-------
 // loops
 //-------

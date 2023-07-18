@@ -15,12 +15,12 @@ IncludeScript("p2mm/main/main.nut")
 // }
 
 function cp() {
-    ::fb <- Entities.CreateByClassname("prop_floor_button")
-    // SetLocation(fb, Transform(Vector(5101.981934, 3581.680664, -447.968750)))
-    ActivateEntity(fb)
-    InitializeEntity(fb)
+    // ::fb <- Entities.CreateByClassname("prop_floor_button")
+    // // SetLocation(fb, Transform(Vector(5101.981934, 3581.680664, -447.968750)))
+    // ActivateEntity(fb)
+    // InitializeEntity(fb)
 
-    hotglue.toolkit.entity.CustomButton(Transform(Vector(0,0,0)))
+    // hotglue.toolkit.entity.CustomButton(Transform(Vector(0,0,0)))
 }
 
 function myPostMapSpawn(PackedArgs) {

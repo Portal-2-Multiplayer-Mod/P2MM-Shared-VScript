@@ -7,6 +7,52 @@ round <- function(num, point = 0) {
     }
 }
 
+VectorToList <- function(vec) {
+    if (IsVec3(vec)) {
+        return [vec.x, vec.y, vec.z]
+    } else {
+        return [vec.x, vec.y]
+    }
+}
+
+min <- function(inpnums) {
+    local type = typeof inpnums
+
+    local nums
+    if (type == "Vector") {
+        nums = VectorToList(inpnums)
+    } else {
+        nums = inpnums
+    }
+
+    local storedval = null;
+    foreach (val in nums) {
+        if (storedval == null || val < storedval) {
+            storedval = val
+        }
+    }
+    return storedval
+}
+
+max <- function(inpnums) {
+    local type = typeof inpnums
+
+    local nums
+    if (type == "Vector") {
+        nums = VectorToList(inpnums)
+    } else {
+        nums = inpnums
+    }
+
+    local storedval = null;
+    foreach (val in nums) {
+        if (storedval == null || val > storedval) {
+            storedval = val
+        }
+    }
+    return storedval
+}
+
 RoundVector <- function(vec, point = 0) {
     local newvec = Vector(0.0, 0.0, 0.0)
     if (IsVec3(vec)) {
