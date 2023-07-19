@@ -116,7 +116,6 @@ class CPlayerClass {
     //--------------------
 
     ColorChangeHook = function(PackedArgs) {
-        printl(PlayerColor.getStringRGB())
         EntFireByHandle(PlayerEntity, "Color", PlayerColor.getStringRGB())
     }
 

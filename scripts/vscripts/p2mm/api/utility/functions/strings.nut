@@ -36,3 +36,18 @@ RStrip <- function(str, chars) {
 
     return str.slice(0, endIndex + 1)
 }
+
+StringIndex <- function(str, indx, lefttoright = true) {
+    if (lefttoright) return str.slice(indx, indx + 1)
+    else return str.slice((str.len() - 1) - indx, ((str.len() - 1) - indx) + 1)
+}
+
+Replace <- function(str, search, replace) {
+    local str = str
+    local find = str.find(search)
+    while (find != null) {
+        str = str.slice(0, find) + replace + str.slice(find + (search.len()))
+        find = str.find(search)
+    }
+    return str
+}

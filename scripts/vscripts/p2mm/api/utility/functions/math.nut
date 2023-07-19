@@ -53,6 +53,27 @@ max <- function(inpnums) {
     return storedval
 }
 
+toHex <- function(dec) {
+    local hex = format("%X", dec);
+    if (typeof hex != "string") hex = hex.tostring()
+    if (hex.len() < 2) hex = "0" + hex
+    return hex
+}
+
+toDec <- function(hex) {
+    local hex = Replace(hex, " ", "")
+    local power = 0
+    local dec = 0
+
+    for (local i = hex.len(); i > 0; i--) {
+        local char = StringIndex(hex, i - 1).tolower()
+        dec += ("0123456789abcdef".find(char)) * pow(16, power)
+        power++
+    }
+
+    return dec
+}
+
 RoundVector <- function(vec, point = 0) {
     local newvec = Vector(0.0, 0.0, 0.0)
     if (IsVec3(vec)) {

@@ -3,8 +3,8 @@
     g = 255
     b = 255
 
-    h = 1.0 // maps to 0-360
-    s = 1.0 // maps to 0-100
+    h = 0.0 // maps to 0-360
+    s = 0.0 // maps to 0-100
     v = 1.0 // maps to 0-100
 
     onChangeHook = null;
@@ -23,6 +23,10 @@
 
     getVectorHSV = function() {
         return Vector(h, s, v)
+    }
+
+    getHex = function() {
+        return toHex(r) + toHex(g) + toHex(b)
     }
 
     setRGB = function(r, g, b) {
@@ -51,6 +55,15 @@
         b = rgb.b
 
         onChangeHook.callCallbacks({Color=this})
+    }
+
+    setHex = function(hex) {
+        local hex = Replace(hex, " ", "")
+        local r = toDec(hex.slice(0,2))
+        local g = toDec(hex.slice(2,4))
+        local b = toDec(hex.slice(4,6))
+
+        setRGB(r,g,b)
     }
 
     mixColor = function(clr, repopulate = true) {
