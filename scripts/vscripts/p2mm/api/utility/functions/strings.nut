@@ -16,7 +16,7 @@ Endswith <- function(string, search) {
     return false;
 }
 
-LStrip <- function(str, chars) {
+LStrip <- function(str, chars = " ") {
     local startIndex = 0
     local len = str.len()
 
@@ -27,7 +27,7 @@ LStrip <- function(str, chars) {
     return str.slice(startIndex)
 }
 
-RStrip <- function(str, chars) {
+RStrip <- function(str, chars = " ") {
     local endIndex = str.len() - 1
 
     while (endIndex >= 0 && chars.find(str.slice(endIndex, endIndex + 1)) != null) {
@@ -35,6 +35,10 @@ RStrip <- function(str, chars) {
     }
 
     return str.slice(0, endIndex + 1)
+}
+
+Strip <- function(str) {
+    return RStrip(LStrip(str))
 }
 
 StringIndex <- function(str, indx, lefttoright = true) {
@@ -50,4 +54,42 @@ Replace <- function(str, search, replace) {
         find = str.find(search)
     }
     return str
+}
+
+Count <- function(str, count) {
+    local str = str
+    local find = str.find(count)
+    local total = 0
+    while (find != null) {
+        total++
+        str = str.slice(0, find) + str.slice(find + (count.len()))
+        find = str.find(count)
+    }
+    return total
+}
+
+//TODO: Rework this to actually act correctly
+QuotesList <- function(args) {
+    local newargs = []
+    local inQuotes = false
+    foreach (arg in args) {
+        if (InString(arg, "\"")) {
+            local parts = split(arg, "\"")
+            foreach (part in parts) {
+                if (part != "") {
+                    if (inQuotes) {
+                        newargs[newargs.len() - 1] += " " + part
+                    } else {
+                        newargs.append(part)
+                    }
+                    inQuotes = !inQuotes
+                }
+            }
+        } else if (inQuotes) {
+            newargs[newargs.len() - 1] += " " + arg
+        } else {
+            newargs.append(arg)
+        }
+    }
+    return newargs
 }

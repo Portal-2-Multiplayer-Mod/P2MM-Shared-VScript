@@ -21,6 +21,7 @@ class CPlayerClass {
     IsBot = false;
     TwoPortals = true;
     EyeAngles = Vector(0,0,0);
+    AdminLevel = 0
 
     // hooks
     OnEyeAnglesChange = null;
@@ -125,6 +126,10 @@ class CPlayerClass {
 
     DisplayText = function() {
 
+    }
+
+    SendMessage = function(text, color="\x04") {
+        SendToChat(color + "​" + text, EntIndex)
     }
 
     givePotatoGun = function() {

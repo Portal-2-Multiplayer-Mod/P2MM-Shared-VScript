@@ -72,8 +72,9 @@
         return mixedhsv
     }
 
-    constructor(r=255,g=255,b=255) {
+    constructor(r=255,g=255,b=255,isrgb=true) {
         onChangeHook = GenericHook("OnColorChange")
-        setRGB(r, g, b)
+        if (isrgb) setRGB(r, g, b)
+        else setHSV(r, g, b)
     }
 }

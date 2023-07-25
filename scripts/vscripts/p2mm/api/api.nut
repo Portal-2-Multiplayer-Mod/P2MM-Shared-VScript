@@ -1,3 +1,5 @@
+p2mm <- {};
+
 IncludeScript("p2mm/api/utility/constants.nut")
 IncludeScript("p2mm/api/utility/functions/general.nut")
 IncludeScript("p2mm/api/utility/functions/lists.nut")
@@ -17,5 +19,4 @@ IncludeScript("p2mm/api/handlers/game/game.nut")
 IncludeScript("p2mm/api/handlers/animation/animation.nut")
 
 IncludeScript("p2mm/api/interfaces/hotglue/hotglue.nut")
-
-p2mm <- {};
+IncludeScript("p2mm/api/interfaces/chatcommands/chatcommands.nut")

@@ -11,14 +11,14 @@ hotglue.toolkit.entity.LinkedPortalDoor <- class {
         } else {
             EntFireByHandle(Entity1, "Open", "", delay)
         }
-        
+
     }
 
     closeDoor = function(delay = 0) {
         EntFireByHandle(Entity1, "Close", "", delay)
         EntFireByHandle(Entity2, "Close", "", delay)
     }
-    
+
     constructor(transform1, transform2, name1 = null, name2 = null) {
         Entity1 = Entities.CreateByClassname("linked_portal_door")
         Entity2 = Entities.CreateByClassname("linked_portal_door")
@@ -47,7 +47,7 @@ hotglue.toolkit.entity.LinkedPortalDoor <- class {
         SetLocation(Entity1, transform1)
         SetLocation(Entity2, transform2)
 
-        InitializeEntity(Entity1)
-        InitializeEntity(Entity2)
+        SpawnEntity(Entity1)
+        SpawnEntity(Entity2)
     }
 }

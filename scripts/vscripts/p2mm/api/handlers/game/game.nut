@@ -7,6 +7,13 @@
         GameTypes=[]
     }
 
+    MapSupport = {
+        hasMapSupport=false
+        developerModeMapSupport=true
+
+        mapSpecificOptions={}
+    }
+
     SharedEnts = {
         point_clientcommand = null,
         point_servercommand = null,
@@ -21,12 +28,11 @@ IncludeScript("p2mm/api/handlers/game/bugfixes/bugfixes.nut")
 //-----------------------
 //setup
 //-----------------------
+game.ServerInfo.mapName = GetMapName()
+game.ServerInfo.isCoop = InString(game.ServerInfo.mapName, "mp_coop")
+game.ServerInfo.isWorkshop = InString(game.ServerInfo.mapName, "workshop/")
 
 function game_handler_post_map_spawn(PackedArgs) {
-    game.ServerInfo.mapName = GetMapName()
-    game.ServerInfo.isCoop = InString(game.ServerInfo.mapName, "mp_coop")
-    game.ServerInfo.isWorkshop = InString(game.ServerInfo.mapName, "workshop/")
-
     local GameDir = GetGameDirectory();
     switch (GameDir) {
         case "portal2":

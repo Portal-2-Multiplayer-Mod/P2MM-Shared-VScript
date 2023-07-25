@@ -60,6 +60,14 @@ function HandleGameFrame(simulating) {
 }
 IncludeScript("p2mm/api/hooks/classes/GenericLoop.nut")
 
+hooks.rawChatMessage <- GenericHook("rawChatCommand")
+function player_say(eindx, message) {
+    hooks.rawChatMessage.callCallbacks({
+        PlayerClass = FindPlayerClassByEntIndex(eindx),
+        Message = message
+    });
+}
+
 
 //-----------------------------
 // VScript Corrected Callbacks
@@ -111,4 +119,4 @@ function p2mm_post_map_spawn(PackedArgs) {
         ::hasRanPostMapSpawn = true
     }
 }
-hooks.playerSpawn.addCallback(p2mm_post_map_spawn)
+hooks.playerActivate.addCallback(p2mm_post_map_spawn)

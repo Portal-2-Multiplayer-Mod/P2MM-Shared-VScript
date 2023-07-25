@@ -51,7 +51,6 @@ function hsv_to_rgb(ih, is, iv) {
         local t = v * (1.0 - s * (1.0 - f))
 
         local valset = []
-        printl(i)
         switch (i) {
             case 0: valset = [v, t, w]; break;
             case 1: valset = [q, v, w]; break;

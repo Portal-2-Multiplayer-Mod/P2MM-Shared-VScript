@@ -20,10 +20,25 @@ GetEntListByClassname <- function(classname) {
 
 GetEntListByName <- function(name) {
     local list = []
-    for(local ent;ent = Entities.FindByName(ent, name);) {
-        list.push(ent)
+    for(local ent;ent = Entities.FindByName(ent, name);) list.push(ent)
+    return list
+}
+
+GetEntListByOrigin <- function(pos, radius = 1, classname = null) {
+    local list = []
+    if (classname == null) {
+        for(local ent;ent = Entities.FindInSphere(ent, pos, radius);) list.push(ent)
+    } else {
+        for(local ent;ent = Entities.FindByClassnameWithin(ent, classname, pos, radius);) list.push(ent)
     }
     return list
+}
+
+RemoveEntsInList <- function(list) {
+    foreach (ent in list) {
+        if ((typeof ent) != "array") ent.Destroy()
+        else RemoveEntsInList(ent)
+    }
 }
 
 RawAddOutput <- function(ent, eventname, actionentname, action, value = "", delay = 0, maxfiretimes = -1) {

@@ -1,7 +1,7 @@
 hotglue.toolkit.entity.AmbientGeneric <- class {
     Entity = null;
     Sound = null;
-    
+
     setFlags = function(flagstable) {
         local flags = 0
         if ("Everywhere" in flagstable && flagstable["Everywhere"] == true) flags += 1
@@ -17,11 +17,16 @@ hotglue.toolkit.entity.AmbientGeneric <- class {
         this.Sound = soundname
     }
 
-    playSound = function(soundname = null) {
+    playSound = function(soundname = null, delay = 0) {
         if (soundname == null) soundname = Sound
         Entity.PrecacheSoundScript(soundname)
-        // EntFireByHandle(Entity, "playsound")
         Entity.EmitSound(soundname)
+        EntFireByHandle(Entity, "stopsound")
+        EntFireByHandle(Entity, "playsound", "", delay)
+    }
+
+    stopSound = function(delay = 0) {
+        EntFireByHandle(Entity, "stopsound", "", delay)
     }
 
     constructor(transform, soundname = "", flagstable = {}, volume=10, radius=1250, pitch=100, keyvals = {}) {

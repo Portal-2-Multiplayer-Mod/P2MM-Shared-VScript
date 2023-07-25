@@ -28,3 +28,13 @@ RepairModelName <- function(modelname) {
     }
     return modelname
 }
+
+RepairMediaName <- function(medianame) {
+    if (!Startswith(medianame, "media/") && !Startswith(medianame, "../")) {
+        medianame = "media/" + LStrip(medianame, "/")
+    }
+    if (!Endswith(medianame, ".bik")) {
+        medianame = RStrip(medianame) + ".bik"
+    }
+    return medianame
+}
